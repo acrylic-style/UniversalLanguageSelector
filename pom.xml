@@ -43,7 +43,12 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <minimizeJar>true</minimizeJar>
+                            <relocations>
+                                <relocation>
+                                    <pattern>xyz.acrylicstyle.sql</pattern>
+                                    <shadedPattern>xyz.acrylicstyle.uls.libs.sql</shadedPattern>
+                                </relocation>
+                            </relocations>
                         </configuration>
                     </execution>
                 </executions>
@@ -80,8 +85,13 @@
         <dependency>
             <groupId>xyz.acrylicstyle</groupId>
             <artifactId>api</artifactId>
-            <version>0.5.25</version>
+            <version>0.6.2a</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>xyz.acrylicstyle</groupId>
+            <artifactId>sequelize4j</artifactId>
+            <version>0.3.6</version>
         </dependency>
     </dependencies>
 </project>

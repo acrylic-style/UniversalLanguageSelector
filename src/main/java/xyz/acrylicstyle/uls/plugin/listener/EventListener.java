@@ -1,4 +1,4 @@
-package xyz.acrylicstyle.uls.listener;
+package xyz.acrylicstyle.uls.plugin.listener;
 
 import org.bukkit.event.Listener;
 

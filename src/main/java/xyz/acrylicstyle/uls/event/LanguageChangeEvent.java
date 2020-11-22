@@ -5,22 +5,22 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.PlayerEvent;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Locale;
+import org.jetbrains.annotations.Nullable;
+import xyz.acrylicstyle.uls.api.Language;
 
 /**
  * Fired when player changed their language.
  */
-public class LanguageChangedEvent extends PlayerEvent implements Cancellable {
+public class LanguageChangeEvent extends PlayerEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
 
-    @NotNull private final Locale locale;
+    @Nullable private final Language language;
     private boolean cancelled = false;
     @NotNull private final Cause cause;
 
-    public LanguageChangedEvent(@NotNull Player who, @NotNull Locale locale, @NotNull Cause cause) {
+    public LanguageChangeEvent(@NotNull Player who, @Nullable Language language, @NotNull Cause cause) {
         super(who);
-        this.locale = locale;
+        this.language = language;
         this.cause = cause;
     }
 
@@ -31,8 +31,8 @@ public class LanguageChangedEvent extends PlayerEvent implements Cancellable {
     @NotNull
     public static HandlerList getHandlerList() { return handlers; }
 
-    @NotNull
-    public Locale getLocale() { return locale; }
+    @Nullable
+    public Language getLanguage() { return language; }
 
     @NotNull
     public Cause getCause() { return cause; }
