@@ -1,4 +1,4 @@
-package xyz.acrylicstyle.uls.plugin.sql;
+package xyz.acrylicstyle.uls.api.sql;
 
 import org.jetbrains.annotations.NotNull;
 import xyz.acrylicstyle.sql.DataType;
@@ -17,9 +17,9 @@ public class ConnectionHolder extends Sequelize {
 
     public void connect() throws SQLException {
         authenticate(getMySQLDriver());
-        language = new LanguageTable(define("players", new TableDefinition[]{
+        language = new LanguageTable(define("language", new TableDefinition[]{
                 new TableDefinition.Builder("uuid", DataType.STRING).setAllowNull(false).setPrimaryKey(true).build(),
-                new TableDefinition.Builder("language", DataType.STRING).setAllowNull(false).setDefaultValue(Language.JAPANESE.name()).build(),
+                new TableDefinition.Builder("language", DataType.STRING).setAllowNull(false).setDefaultValue(Language.DEFAULT.name()).build(),
         }));
         sync();
     }

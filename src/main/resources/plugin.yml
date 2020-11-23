@@ -1,3 +1,6 @@
-main: xyz.acrrylicstyle.uls.plugin.UniversalLanguageSelector
+main: xyz.acrylicstyle.uls.bukkit.UniversalLanguageSelectorPlugin
 name: UniversalLanguageSelector
 version: "0.0.1"
+commands:
+  language:
+    aliases: "lang"

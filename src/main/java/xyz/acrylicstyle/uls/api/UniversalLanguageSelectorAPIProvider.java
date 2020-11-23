@@ -7,7 +7,7 @@ public final class UniversalLanguageSelectorAPIProvider {
     private static UniversalLanguageSelectorAPI api = null;
 
     @NotNull
-    public static UniversalLanguageSelectorAPI getAPI() { return Validate.notNull(api, "API isn't defined yet!"); }
+    public static UniversalLanguageSelectorAPI getAPI() { return Validate.notNull(api, "API isn't defined yet or you are running on unsupported environment"); }
 
     public static void setAPI(@NotNull UniversalLanguageSelectorAPI api) {
         if (UniversalLanguageSelectorAPIProvider.api != null) throw new IllegalArgumentException("Cannot redefine API singleton");

@@ -1,8 +1,18 @@
 package xyz.acrylicstyle.uls.api.sql;
 
+import org.jetbrains.annotations.NotNull;
+import util.promise.Promise;
+import xyz.acrylicstyle.uls.api.Language;
+
+import java.util.UUID;
+
 /**
- * Provides the raw access to the table. These methods are not cached and actions should not be performed on
- * the main thread.
+ * Provides the raw access to the table.
  */
 public interface LanguageDataAPI {
+    @NotNull
+    Promise<Void> set(@NotNull UUID uuid, @NotNull Language language);
+
+    @NotNull
+    Promise<Language> get(@NotNull UUID uuid);
 }
