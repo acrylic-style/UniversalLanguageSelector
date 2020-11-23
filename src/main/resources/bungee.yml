@@ -1,6 +1,5 @@
 main: xyz.acrylicstyle.uls.bungee.UniversalLanguageSelectorPlugin
 name: UniversalLanguageSelector
-softdepends:
+depends:
   - FriendsAndParties
   - TomeitoBungee
-  - BungeeWaiter

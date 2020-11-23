@@ -93,6 +93,12 @@
             <artifactId>api</artifactId>
             <version>0.6.4b</version>
             <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>xyz.acrylicstyle</groupId>
+                    <artifactId>java-util-all</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>xyz.acrylicstyle</groupId>

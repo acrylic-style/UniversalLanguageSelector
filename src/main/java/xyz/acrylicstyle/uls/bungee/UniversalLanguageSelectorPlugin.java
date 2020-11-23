@@ -6,6 +6,7 @@ import net.md_5.bungee.config.YamlConfiguration;
 import xyz.acrylicstyle.uls.api.ChannelConstants;
 import xyz.acrylicstyle.uls.api.UniversalLanguageSelectorAPIProvider;
 import xyz.acrylicstyle.uls.api.sql.ConnectionHolder;
+import xyz.acrylicstyle.uls.bungee.channel.BungeeChannelListener;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,6 +34,7 @@ public class UniversalLanguageSelectorPlugin extends UniversalLanguageSelectorIm
     @Override
     public void onEnable() {
         getProxy().registerChannel(ChannelConstants.INVALIDATE_CACHE);
+        getProxy().getPluginManager().registerListener(this, new BungeeChannelListener());
         String host = config.getString("database.host");
         String name = config.getString("database.name");
         String user = config.getString("database.user");
