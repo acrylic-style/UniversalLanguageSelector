@@ -1,6 +1,8 @@
 main: xyz.acrylicstyle.uls.bukkit.UniversalLanguageSelectorPlugin
 name: UniversalLanguageSelector
 version: "0.0.1"
+depend:
+  - TomeitoLib
 commands:
   language:
     aliases: "lang"
