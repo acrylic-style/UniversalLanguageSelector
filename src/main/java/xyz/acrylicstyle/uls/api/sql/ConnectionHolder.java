@@ -7,6 +7,7 @@ import xyz.acrylicstyle.sql.TableDefinition;
 import xyz.acrylicstyle.uls.api.Language;
 
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class ConnectionHolder extends Sequelize {
     public LanguageTable language;
@@ -16,7 +17,10 @@ public class ConnectionHolder extends Sequelize {
     }
 
     public void connect() throws SQLException {
-        authenticate(getMySQLDriver());
+        Properties properties = new Properties();
+        properties.setProperty("maxReconnects", "3");
+        properties.setProperty("autoReconnect", "true");
+        authenticate(getMySQLDriver(), properties);
         language = new LanguageTable(define("language", new TableDefinition[]{
                 new TableDefinition.Builder("uuid", DataType.STRING).setAllowNull(false).setPrimaryKey(true).build(),
                 new TableDefinition.Builder("language", DataType.STRING).setAllowNull(false).setDefaultValue(Language.DEFAULT.name()).build(),
