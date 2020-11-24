@@ -33,8 +33,9 @@ public class SelectLanguageGui implements InventoryHolder, PlayerGui, Listener {
 
     public Inventory getInventory(String title) {
         Inventory inventory = Bukkit.createInventory(this, 27, title);
-        inventory.setItem(12, Util.displayName(Util.getWool(DyeColor.RED), ChatColor.RED + "日本語"));
-        inventory.setItem(14, Util.displayName(Util.getWool(DyeColor.WHITE), ChatColor.WHITE + "English"));
+        inventory.setItem(11, Util.displayName(Util.getWool(DyeColor.RED), ChatColor.RED + "日本語"));
+        inventory.setItem(13, Util.displayName(Util.getWool(DyeColor.WHITE), ChatColor.WHITE + "English"));
+        inventory.setItem(15, Util.displayName(Util.getWool(DyeColor.RED), ChatColor.RED + "中文"));
         return inventory;
     }
 
@@ -47,14 +48,19 @@ public class SelectLanguageGui implements InventoryHolder, PlayerGui, Listener {
     public void onInventoryClick(@NotNull InventoryClickEvent e) {
         if (e.getInventory().getHolder() != this) return;
         e.setCancelled(true);
-        if (e.getSlot() == 12) {
+        if (e.getSlot() == 11) {
             UniversalLanguageSelectorAPIProvider.getAPI().bukkit().setLanguage((Player) e.getWhoClicked(), Language.JAPANESE).then(v -> {
                 changed(e.getWhoClicked(), "日本語");
                 return null;
             }).queue();
-        } else if (e.getSlot() == 14) {
+        } else if (e.getSlot() == 13) {
             UniversalLanguageSelectorAPIProvider.getAPI().bukkit().setLanguage((Player) e.getWhoClicked(), Language.ENGLISH).then(v -> {
                 changed(e.getWhoClicked(), "English");
+                return null;
+            }).queue();
+        } else if (e.getSlot() == 15) {
+            UniversalLanguageSelectorAPIProvider.getAPI().bukkit().setLanguage((Player) e.getWhoClicked(), Language.CHINESE).then(v -> {
+                changed(e.getWhoClicked(), "中文");
                 return null;
             }).queue();
         }
