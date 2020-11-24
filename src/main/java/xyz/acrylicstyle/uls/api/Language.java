@@ -8,6 +8,7 @@ import util.base.Enums;
 public enum Language {
     ENGLISH,
     JAPANESE,
+    CHINESE,
     ;
 
     @NotNull
