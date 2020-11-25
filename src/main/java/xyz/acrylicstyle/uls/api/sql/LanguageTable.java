@@ -8,6 +8,7 @@ import xyz.acrylicstyle.sql.options.UpsertOptions;
 import xyz.acrylicstyle.uls.api.Language;
 import xyz.acrylicstyle.uls.api.UniversalLanguageSelectorAPIProvider;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class LanguageTable implements LanguageDataAPI {
@@ -35,5 +36,10 @@ public class LanguageTable implements LanguageDataAPI {
     public Promise<Language> get(@NotNull UUID uuid) {
         return this.table.findOne(new FindOptions.Builder().addWhere("uuid", uuid.toString()).build())
                 .then(td -> td == null ? Language.DEFAULT : Language.get(td.getString("language")));
+    }
+
+    @NotNull
+    public Promise<Boolean> has(@NotNull UUID uuid) {
+        return this.table.findOne(new FindOptions.Builder().addWhere("uuid", uuid.toString()).build()).then(Objects::nonNull);
     }
 }

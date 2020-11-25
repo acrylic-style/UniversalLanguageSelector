@@ -48,6 +48,10 @@
                                     <pattern>xyz.acrylicstyle.sql</pattern>
                                     <shadedPattern>xyz.acrylicstyle.uls.libs.sql</shadedPattern>
                                 </relocation>
+                                <relocation>
+                                    <pattern>xyz.acrylicstyle.nmsapi</pattern>
+                                    <shadedPattern>xyz.acrylicstyle.uls.libs.nmsapi</shadedPattern>
+                                </relocation>
                             </relocations>
                         </configuration>
                     </execution>
@@ -98,7 +102,16 @@
                     <groupId>xyz.acrylicstyle</groupId>
                     <artifactId>java-util-all</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>xyz.acrylicstyle</groupId>
+                    <artifactId>NMSAPI-1.8.8</artifactId>
+                </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>xyz.acrylicstyle</groupId>
+            <artifactId>NMSAPI-1.8.8</artifactId>
+            <version>0.0.1</version>
         </dependency>
         <dependency>
             <groupId>xyz.acrylicstyle</groupId>

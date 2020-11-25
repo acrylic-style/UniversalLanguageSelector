@@ -15,4 +15,7 @@ public interface LanguageDataAPI {
 
     @NotNull
     Promise<Language> get(@NotNull UUID uuid);
+
+    @NotNull
+    Promise<Boolean> has(@NotNull UUID uuid);
 }

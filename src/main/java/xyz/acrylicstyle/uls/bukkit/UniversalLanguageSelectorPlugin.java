@@ -45,7 +45,7 @@ public class UniversalLanguageSelectorPlugin extends UniversalLanguageSelectorIm
                 bukkit().openSelectLanguageGui(player);
             }
         });
-        Bukkit.getPluginManager().registerEvents(new EventListener(), this);
+        Bukkit.getPluginManager().registerEvents(new EventListener(this), this);
         String host = config.getString("database.host");
         String name = config.getString("database.name");
         String user = config.getString("database.user");
