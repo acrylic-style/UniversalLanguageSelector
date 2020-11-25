@@ -7,6 +7,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import xyz.acrylicstyle.nmsapi.v1_8_8.craftbukkit.entity.CraftPlayer;
 import xyz.acrylicstyle.uls.api.Language;
+import xyz.acrylicstyle.uls.api.util.LanguageHolder;
+import xyz.acrylicstyle.uls.api.util.LanguageKeys;
 import xyz.acrylicstyle.uls.bukkit.UniversalLanguageSelectorPlugin;
 
 public class EventListener implements Listener {
@@ -33,7 +35,12 @@ public class EventListener implements Listener {
                 language = Language.ENGLISH;
             }
             this.plugin.db.language.set(e.getPlayer().getUniqueId(), language).queue();
-            e.getPlayer().sendMessage(ChatColor.GREEN + "Your language was set to " + ChatColor.GOLD + language.name() + ChatColor.GREEN + ". Please do " + ChatColor.YELLOW + "/lang" + ChatColor.GREEN + " if you want to select language manually.");
+            e.getPlayer().sendMessage(ChatColor.GOLD + "==============================");
+            e.getPlayer().sendMessage("");
+            e.getPlayer().sendMessage(LanguageHolder.instance().get(LanguageKeys.SET_LANGUAGE_AUTOMATICALLY, language));
+            if (language != Language.ENGLISH) e.getPlayer().sendMessage(ChatColor.GREEN + "Your language was set to " + ChatColor.GOLD + language.name() + ChatColor.GREEN + ". Please do " + ChatColor.YELLOW + "/lang" + ChatColor.GREEN + " if it was wrong language.");
+            e.getPlayer().sendMessage("");
+            e.getPlayer().sendMessage(ChatColor.GOLD + "==============================");
             return null;
         }).queue(), 20);
     }
