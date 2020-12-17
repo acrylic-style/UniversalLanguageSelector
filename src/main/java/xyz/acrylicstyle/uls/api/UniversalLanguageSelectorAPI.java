@@ -8,6 +8,9 @@ import xyz.acrylicstyle.uls.api.sql.LanguageDataAPI;
 import java.util.UUID;
 
 public interface UniversalLanguageSelectorAPI {
+    BukkitAPI BUKKIT_API = new BukkitAPI();
+    BungeeCordAPI BUNGEE_CORD_API = new BungeeCordAPI();
+
     void invalidateCache(@NotNull UUID uuid);
 
     /**
@@ -33,24 +36,40 @@ public interface UniversalLanguageSelectorAPI {
      * Returns methods that is available only when running on spigot server.
      */
     @NotNull
-    default BukkitAPI bukkit() { throw new UnsupportedOperationException("Not supported in this environment."); }
+    default BukkitAPI bukkit() { return BUKKIT_API; }
 
     /**
      * Returns methods that is available only when running on BungeeCord server.
      */
     @NotNull
-    default BungeeCordAPI bungeeCord() { throw new UnsupportedOperationException("Not supported in this environment."); }
+    default BungeeCordAPI bungeeCord() { return BUNGEE_CORD_API; }
 
-    interface BukkitAPI {
+    /**
+     * Returns the name of the implementation.
+     * @return the name
+     */
+    @Nullable
+    String getImplName();
+
+    @Nullable
+    String getVersion();
+
+    class BukkitAPI {
         @NotNull
-        Promise<Void> setLanguage(@NotNull org.bukkit.entity.Player player, @Nullable Language language);
+        public Promise<Void> setLanguage(@NotNull org.bukkit.entity.Player player, @Nullable Language language) {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
 
         @NotNull
-        Promise<Language> getLanguage(@NotNull org.bukkit.entity.Player player);
+        public Promise<Language> getLanguage(@NotNull org.bukkit.entity.Player player) {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
 
-        void openSelectLanguageGui(@NotNull org.bukkit.entity.Player player);
+        public void openSelectLanguageGui(@NotNull org.bukkit.entity.Player player) {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
     }
 
-    interface BungeeCordAPI {
+    class BungeeCordAPI {
     }
 }

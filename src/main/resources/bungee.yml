@@ -1,4 +1,5 @@
 main: xyz.acrylicstyle.uls.bungee.UniversalLanguageSelectorPlugin
 name: UniversalLanguageSelector
+version: "0.0.4"
 depends:
   - TomeitoBungee

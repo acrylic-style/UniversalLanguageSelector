@@ -19,14 +19,13 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
-public class UniversalLanguageSelectorImpl extends Plugin implements UniversalLanguageSelectorAPI, UniversalLanguageSelectorAPI.BungeeCordAPI {
+public class UniversalLanguageSelectorImpl extends Plugin implements UniversalLanguageSelectorAPI {
     private final Map<UUID, DataCache<Language>> cache = new HashMap<>();
+    private final BungeeCordAPIImpl bungeeCordAPI = new BungeeCordAPIImpl();
 
     public ConnectionHolder db;
 
-    public void invalidateCache(@NotNull UUID uuid) {
-        cache.remove(uuid);
-    }
+    public void invalidateCache(@NotNull UUID uuid) { cache.remove(uuid); }
 
     @Override
     public void requestInvalidateCache(@NotNull UUID uuid) {
@@ -61,5 +60,20 @@ public class UniversalLanguageSelectorImpl extends Plugin implements UniversalLa
     }
 
     @Override
-    public @NotNull BungeeCordAPI bungeeCord() { return this; }
+    public @NotNull BungeeCordAPI bungeeCord() { return bungeeCordAPI; }
+
+    @Override
+    public @NotNull String getImplName() {
+        return "UniversalLanguageSelector (BungeeCord)";
+    }
+
+    @Override
+    public @Nullable String getVersion() {
+        return getDescription().getVersion();
+    }
+
+    @SuppressWarnings("InnerClassMayBeStatic")
+    public class BungeeCordAPIImpl extends BungeeCordAPI {
+        //
+    }
 }

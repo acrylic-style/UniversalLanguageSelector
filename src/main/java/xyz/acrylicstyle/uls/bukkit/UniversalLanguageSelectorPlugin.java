@@ -5,6 +5,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import util.ActionableResult;
+import util.reflector.Reflector;
 import xyz.acrylicstyle.tomeito_api.TomeitoAPI;
 import xyz.acrylicstyle.tomeito_api.command.PlayerCommandExecutor;
 import xyz.acrylicstyle.tomeito_api.providers.ConfigProvider;
@@ -22,13 +23,11 @@ public class UniversalLanguageSelectorPlugin extends UniversalLanguageSelectorIm
     public final ConfigProvider config = new ConfigProvider("./plugins/UniversalLanguageSelector/config.yml");
     public final Log.Logger logger = Log.of("UniversalLanguageSelector");
 
-    @Override
-    public void onLoad() {
-        UniversalLanguageSelectorAPIProvider.setAPI(this);
-    }
+    public UniversalLanguageSelectorPlugin() { UniversalLanguageSelectorAPIProvider.setAPI(this); }
 
     @Override
     public void onEnable() {
+        Reflector.classLoader = this.getClassLoader();
         getServer().getMessenger().registerIncomingPluginChannel(this, ChannelConstants.INVALIDATE_CACHE, new BukkitChannelListener());
         getServer().getMessenger().registerOutgoingPluginChannel(this, ChannelConstants.INVALIDATE_CACHE);
         TomeitoAPI.registerCommand("language", new PlayerCommandExecutor() {

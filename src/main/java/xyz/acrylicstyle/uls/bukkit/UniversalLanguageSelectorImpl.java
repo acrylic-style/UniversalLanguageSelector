@@ -25,16 +25,15 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
-public class UniversalLanguageSelectorImpl extends JavaPlugin implements UniversalLanguageSelectorAPI, UniversalLanguageSelectorAPI.BukkitAPI {
+public class UniversalLanguageSelectorImpl extends JavaPlugin implements UniversalLanguageSelectorAPI {
     private final Map<UUID, DataCache<Language>> cache = new HashMap<>();
     protected final SelectLanguageGui selectLanguageGui = new SelectLanguageGui(this);
+    private final BukkitAPIImpl bukkitAPI = new BukkitAPIImpl();
 
     public ConnectionHolder db;
 
     @Override
-    public void invalidateCache(@NotNull UUID uuid) {
-        cache.remove(uuid);
-    }
+    public void invalidateCache(@NotNull UUID uuid) { cache.remove(uuid); }
 
     @Override
     public void requestInvalidateCache(@NotNull UUID uuid) {
@@ -44,16 +43,6 @@ public class UniversalLanguageSelectorImpl extends JavaPlugin implements Univers
         );
     }
 
-    @NotNull
-    @Override
-    public Promise<Void> setLanguage(@NotNull Player player, @Nullable Language language) {
-        if (language == null) language = Language.DEFAULT;
-        LanguageChangeEvent event = new LanguageChangeEvent(player, player.getUniqueId(), language, LanguageChangeEvent.Cause.PLUGIN);
-        Bukkit.getPluginManager().callEvent(event);
-        if (event.isCancelled()) return Promise.getEmptyPromise();
-        return this.db.language.set(player.getUniqueId(), language);
-    }
-
     @Override
     public @NotNull Promise<Void> setLanguage(@NotNull UUID player, @Nullable Language language) {
         if (language == null) language = Language.DEFAULT;
@@ -61,12 +50,6 @@ public class UniversalLanguageSelectorImpl extends JavaPlugin implements Univers
         Bukkit.getPluginManager().callEvent(event);
         if (event.isCancelled()) return Promise.getEmptyPromise();
         return this.db.language.set(player, language);
-    }
-
-    @Override
-    @NotNull
-    public Promise<Language> getLanguage(@NotNull Player player) {
-        return this.getLanguage(player.getUniqueId());
     }
 
     @NotNull
@@ -83,18 +66,46 @@ public class UniversalLanguageSelectorImpl extends JavaPlugin implements Univers
         });
     }
 
-    @Override
-    public void openSelectLanguageGui(@NotNull Player player) {
-        LanguageHolder.instance().get(LanguageKeys.GUI_SELECT_LANGUAGE, player.getUniqueId()).then(selectLanguageMessage -> {
-            TomeitoAPI.run(() -> player.openInventory(selectLanguageGui.getInventory(selectLanguageMessage)));
-            return null;
-        }).queue();
-    }
-
     @NotNull
     @Override
     public LanguageDataAPI getLanguageDataAPI() { return this.db.language; }
 
     @Override
-    public @NotNull BukkitAPI bukkit() { return this; }
+    public @NotNull BukkitAPI bukkit() { return bukkitAPI; }
+
+    @Override
+    public @NotNull String getImplName() {
+        return "UniversalLanguageSelector (Bukkit)";
+    }
+
+    @Override
+    public @Nullable String getVersion() {
+        return getDescription().getVersion();
+    }
+
+    public class BukkitAPIImpl extends UniversalLanguageSelectorAPI.BukkitAPI {
+        @NotNull
+        @Override
+        public Promise<Void> setLanguage(@NotNull Player player, @Nullable Language language) {
+            if (language == null) language = Language.DEFAULT;
+            LanguageChangeEvent event = new LanguageChangeEvent(player, player.getUniqueId(), language, LanguageChangeEvent.Cause.PLUGIN);
+            Bukkit.getPluginManager().callEvent(event);
+            if (event.isCancelled()) return Promise.getEmptyPromise();
+            return UniversalLanguageSelectorImpl.this.db.language.set(player.getUniqueId(), language);
+        }
+
+        @Override
+        @NotNull
+        public Promise<Language> getLanguage(@NotNull Player player) {
+            return UniversalLanguageSelectorImpl.this.getLanguage(player.getUniqueId());
+        }
+
+        @Override
+        public void openSelectLanguageGui(@NotNull Player player) {
+            LanguageHolder.instance().get(LanguageKeys.GUI_SELECT_LANGUAGE, player.getUniqueId()).then(selectLanguageMessage -> {
+                TomeitoAPI.run(() -> player.openInventory(selectLanguageGui.getInventory(selectLanguageMessage)));
+                return null;
+            }).queue();
+        }
+    }
 }
