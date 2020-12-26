@@ -4,6 +4,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import util.ActionableResult;
 import util.Collection;
+import util.promise.IPromise;
 import util.promise.Promise;
 import xyz.acrylicstyle.tomeito_api.utils.NamespacedKey;
 import xyz.acrylicstyle.uls.api.Language;
@@ -30,7 +31,7 @@ public class LanguageHolder {
     @Contract(pure = true)
     @NotNull
     public Promise<String> get(@NotNull NamespacedKey namespacedKey, @NotNull UUID player) {
-        return UniversalLanguageSelectorAPIProvider.getAPI().getLanguage(player).then(language -> get(namespacedKey, language));
+        return UniversalLanguageSelectorAPIProvider.getAPI().getLanguage(player).then((IPromise<Language, String>) language -> get(namespacedKey, language));
     }
 
     @NotNull

@@ -23,5 +23,5 @@ public enum Language {
     }
 
     @NotNull
-    public static CollectionList<Language> valuesList() { return ICollectionList.asList(values()); }
+    public static CollectionList<Language> valuesList() { return (CollectionList<Language>) ICollectionList.asList(values()); }
 }
